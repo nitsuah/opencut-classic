@@ -14,6 +14,13 @@ import {
 	initializeGpuRenderer,
 	isGpuAvailable,
 } from "@/services/renderer/gpu-renderer";
+import { usePanelStore } from "@/editor/panel-store";
+import { usePreviewStore } from "@/preview/preview-store";
+import { useSoundsStore } from "@/sounds/sounds-store";
+import { useStickersStore } from "@/stickers/stickers-store";
+import { useAssetsPanelStore } from "@/components/editor/panels/assets/assets-panel-store";
+import { usePropertiesStore } from "@/components/editor/panels/properties/stores/properties-store";
+
 
 interface EditorProviderProps {
 	projectId: string;
