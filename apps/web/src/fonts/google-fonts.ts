@@ -15,10 +15,13 @@ function encodeGoogleFontsFamily(family: string): string {
 }
 
 export function escapeCssString(value: string): string {
-	return value.replace(/[\0-\x1f\x7f"\\]/g, (character) => {
-		const codePoint = character.codePointAt(0);
-		return codePoint === undefined ? "" : `\\${codePoint.toString(16)} `;
-	});
+	return value
+		.replace(/\\/g, "\\\\")
+		.replace(/"/g, '\\"')
+		.replace(/[\0-\x1f\x7f]/g, (character) => {
+			const codePoint = character.codePointAt(0);
+			return codePoint === undefined ? "" : `\\${codePoint.toString(16)} `;
+		});
 }
 
 export function getCachedFontAtlas(): FontAtlas | null {
