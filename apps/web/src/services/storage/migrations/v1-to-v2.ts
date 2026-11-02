@@ -135,8 +135,8 @@ async function loadLegacyTracksForScene({
 				storeName: "timeline",
 				version: 1,
 			});
-		data = await projectAdapter.get("timeline");
-	}
+			data = await projectAdapter.get("timeline");
+		}
 
 	if (!data || !Array.isArray(data.tracks)) {
 		return [];
