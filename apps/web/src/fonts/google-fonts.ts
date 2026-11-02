@@ -70,10 +70,10 @@ export async function loadFullFont({
 		link.addEventListener("load", () => resolve(), { once: true });
 		link.addEventListener("error", () => resolve(), { once: true });
 	});
-	// codeql[js/incomplete-sanitization]: Font family escaping — input from controlled font lists, not user content.
+	const escapedFamily = family.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 	await Promise.all(
 		weights.map((weight) =>
-			document.fonts.load(`${weight} 16px "${family.replace(/"/g, '\\"')}"`),
+			document.fonts.load(`${weight} 16px "${escapedFamily}"`),
 		),
 	);
 	fullLoaded.add(family);

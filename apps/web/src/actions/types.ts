@@ -1,6 +1,5 @@
 import type { MutableRefObject } from "react";
 import type { TAction } from "./definitions";
-import { ACTIONS } from "./definitions";
 
 export type { TAction };
 
@@ -44,6 +43,40 @@ export type TActionHandlerOptions =
 	| boolean
 	| undefined;
 
+const ACTIONS_WITH_OPTIONAL_ARGS = new Set<TActionWithOptionalArgs>([
+	"toggle-play",
+	"stop-playback",
+	"seek-forward",
+	"seek-backward",
+	"frame-step-forward",
+	"frame-step-backward",
+	"jump-forward",
+	"jump-backward",
+	"goto-start",
+	"goto-end",
+	"split",
+	"split-left",
+	"split-right",
+	"delete-selected",
+	"copy-selected",
+	"paste-copied",
+	"toggle-snapping",
+	"toggle-ripple-editing",
+	"toggle-source-audio",
+	"select-all",
+	"cancel-interaction",
+	"deselect-all",
+	"duplicate-selected",
+	"toggle-elements-muted-selected",
+	"toggle-elements-visibility-selected",
+	"toggle-bookmark",
+	"undo",
+	"redo",
+]);
+
 export function isActionWithOptionalArgs(value: unknown): value is TActionWithOptionalArgs {
-	return typeof value === "string" && value in ACTIONS;
+	return (
+		typeof value === "string" &&
+		ACTIONS_WITH_OPTIONAL_ARGS.has(value as TActionWithOptionalArgs)
+	);
 }
