@@ -43,7 +43,18 @@ export type KeybindingConfig = {
 };
 
 export function isShortcutKey(value: string): value is ShortcutKey {
-	return KEY_SET.has(value) || value.split('+').every(part =>
-		part === 'ctrl' || part === 'alt' || part === 'shift' || KEY_SET.has(part)
-	);
+	if (KEY_SET.has(value)) return true;
+	const parts = value.split('+');
+	if (parts.length < 2) return false;
+	const finalKey = parts[parts.length - 1];
+	if (!KEY_SET.has(finalKey)) return false;
+	const modifiers = parts.slice(0, -1);
+	if (modifiers.length === 0) return false;
+	const seen = new Set<string>();
+	for (const m of modifiers) {
+		if (m !== 'ctrl' && m !== 'alt' && m !== 'shift') return false;
+		if (seen.has(m)) return false;
+		seen.add(m);
+	}
+	return true;
 }

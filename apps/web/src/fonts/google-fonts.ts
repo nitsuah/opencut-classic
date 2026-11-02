@@ -70,7 +70,7 @@ export async function loadFullFont({
 		link.addEventListener("load", () => resolve(), { once: true });
 		link.addEventListener("error", () => resolve(), { once: true });
 	});
-	const escapedFamily = family.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+	const escapedFamily = encodeURIComponent(family).replace(/%20/g, "+");
 	await Promise.all(
 		weights.map((weight) =>
 			document.fonts.load(`${weight} 16px "${escapedFamily}"`),

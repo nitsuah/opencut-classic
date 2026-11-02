@@ -1,5 +1,6 @@
 import type { MutableRefObject } from "react";
 import type { TAction } from "./definitions";
+import { ACTIONS } from "./definitions";
 
 export type { TAction };
 
@@ -12,7 +13,7 @@ export type TActionArgsMap = {
 	"remove-media-assets": { projectId: string; assetIds: string[] };
 };
 
-const TActionArgsMapKeys = [
+const _TActionArgsMapKeys = [
 	"seek-forward",
 	"seek-backward",
 	"jump-forward",
@@ -52,16 +53,13 @@ export type TActionHandlerOptions =
 	| boolean
 	| undefined;
 
+const ACTIONS_WITH_REQUIRED_ARGS = new Set<string>();
+for (const [key, def] of Object.entries(ACTIONS)) {
+	if ("args" in def && def.args !== undefined && Object.keys(def.args).length > 0) {
+		ACTIONS_WITH_REQUIRED_ARGS.add(key);
+	}
+}
+
 export function isActionWithOptionalArgs(value: string): value is TActionWithOptionalArgs {
-	return [
-		...TActionArgsMapKeys,
-		"play", "pause", "stop", "undo", "redo",
-		"copy", "cut", "paste", "delete", "select-all",
-		"split", "join", "trim-start", "trim-end",
-		"zoom-in", "zoom-out", "zoom-fit", "zoom-reset",
-		"next-frame", "prev-frame", "next-keyframe", "prev-keyframe",
-		"add-text", "add-image", "add-video", "add-audio",
-		"toggle-snapping", "toggle-grid", "toggle-rulers",
-		"save", "export", "import", "new-project",
-	].includes(value);
+	return Object.keys(ACTIONS).includes(value) && !ACTIONS_WITH_REQUIRED_ARGS.has(value);
 }
