@@ -2,7 +2,7 @@ import { describe, expect, test } from "bun:test";
 import type { Transform } from "@/rendering";
 import type { SceneTracks, VideoElement } from "@/timeline";
 import { applyElementUpdate } from "@/timeline/update-pipeline";
-import { mediaTime, ZERO_MEDIA_TIME } from "@/wasm";
+import { mediaTime, roundMediaTime, ZERO_MEDIA_TIME } from "@/wasm";
 
 function buildTransform(): Transform {
 	return {
@@ -66,7 +66,7 @@ describe("applyElementUpdate", () => {
 			},
 		});
 
-		expect(updatedElement.duration).toBe(7);
+		expect(updatedElement.duration).toBe(roundMediaTime({ time: 7 }));
 		expect(Number.isInteger(updatedElement.duration)).toBe(true);
 	});
 });

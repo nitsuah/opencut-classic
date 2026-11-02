@@ -70,9 +70,10 @@ export async function loadFullFont({
 		link.addEventListener("load", () => resolve(), { once: true });
 		link.addEventListener("error", () => resolve(), { once: true });
 	});
+	const escapedFamily = family.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
 	await Promise.all(
 		weights.map((weight) =>
-			document.fonts.load(`${weight} 16px "${family.replace(/"/g, '\\"')}"`),
+			document.fonts.load(`${weight} 16px "${escapedFamily}"`),
 		),
 	);
 	fullLoaded.add(family);

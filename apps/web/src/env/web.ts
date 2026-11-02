@@ -11,9 +11,9 @@ const webEnvSchema = z.object({
 	NEXT_PUBLIC_MARBLE_API_URL: z.string().url().optional(),
 
 	// Server
-	DATABASE_URL: z.string().optional(),
-		"DATABASE_URL must be a postgres:// or postgresql:// URL",
-	),
+	DATABASE_URL: z.string().optional().refine((url) => !url || /^postgres(?:ql)?:\/\//.test(url), {
+			message: "DATABASE_URL must be a postgres:// or postgresql:// URL",
+		}),
 
 	BETTER_AUTH_SECRET: z.string().optional(),
 	UPSTASH_REDIS_REST_URL: z.string().url().optional(),

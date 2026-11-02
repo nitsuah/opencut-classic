@@ -1,5 +1,6 @@
 import type { ParseSubtitleResult, SubtitleCue } from "./types";
 
+// codeql[js/bad-tag-filter]: SRT timestamp separator regex — fixed pattern, not user input.
 const TIMESTAMP_SEPARATOR = /\s*-->\s*/;
 const TIMESTAMP_PATTERN =
 	/^(\d{2}:\d{2}:\d{2}[,.]\d{1,3})\s*-->\s*(\d{2}:\d{2}:\d{2}[,.]\d{1,3})/;

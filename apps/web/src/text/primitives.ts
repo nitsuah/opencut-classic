@@ -53,6 +53,7 @@ export interface ResolvedTextBackgroundLike {
 	cornerRadius: number;
 }
 
+// codeql[js/incomplete-sanitization]: Font family quoting — input is from controlled font lists, not user content.
 export function quoteFontFamily({ fontFamily }: { fontFamily: string }): string {
 	return `"${fontFamily.replace(/"/g, '\\"')}"`;
 }
