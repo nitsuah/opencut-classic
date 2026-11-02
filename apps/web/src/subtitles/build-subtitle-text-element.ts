@@ -23,7 +23,7 @@ const MEASUREMENT_CANVAS_SIZE = 4096;
 
 // codeql[js/incomplete-sanitization]: Font family quoting — input from controlled font lists, not user content.
 function quoteFontFamily({ fontFamily }: { fontFamily: string }): string {
-	return `"${fontFamily.replace(/"/g, '\\"')}"`;
+	return `"${fontFamily.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
 }
 
 function createMeasurementContext(): CanvasRenderingContext2D | null {

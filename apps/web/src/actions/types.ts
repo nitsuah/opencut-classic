@@ -12,6 +12,15 @@ export type TActionArgsMap = {
 	"remove-media-assets": { projectId: string; assetIds: string[] };
 };
 
+const TActionArgsMapKeys = [
+	"seek-forward",
+	"seek-backward",
+	"jump-forward",
+	"jump-backward",
+	"remove-media-asset",
+	"remove-media-assets",
+] as const satisfies readonly (keyof TActionArgsMap)[];
+
 type TKeysWithValueUndefined<T> = {
 	[K in keyof T]: undefined extends T[K] ? K : never;
 }[keyof T];
@@ -43,40 +52,16 @@ export type TActionHandlerOptions =
 	| boolean
 	| undefined;
 
-const ACTIONS_WITH_OPTIONAL_ARGS = new Set<TActionWithOptionalArgs>([
-	"toggle-play",
-	"stop-playback",
-	"seek-forward",
-	"seek-backward",
-	"frame-step-forward",
-	"frame-step-backward",
-	"jump-forward",
-	"jump-backward",
-	"goto-start",
-	"goto-end",
-	"split",
-	"split-left",
-	"split-right",
-	"delete-selected",
-	"copy-selected",
-	"paste-copied",
-	"toggle-snapping",
-	"toggle-ripple-editing",
-	"toggle-source-audio",
-	"select-all",
-	"cancel-interaction",
-	"deselect-all",
-	"duplicate-selected",
-	"toggle-elements-muted-selected",
-	"toggle-elements-visibility-selected",
-	"toggle-bookmark",
-	"undo",
-	"redo",
-]);
-
-export function isActionWithOptionalArgs(value: unknown): value is TActionWithOptionalArgs {
-	return (
-		typeof value === "string" &&
-		ACTIONS_WITH_OPTIONAL_ARGS.has(value as TActionWithOptionalArgs)
-	);
+export function isActionWithOptionalArgs(value: string): value is TActionWithOptionalArgs {
+	return [
+		...TActionArgsMapKeys,
+		"play", "pause", "stop", "undo", "redo",
+		"copy", "cut", "paste", "delete", "select-all",
+		"split", "join", "trim-start", "trim-end",
+		"zoom-in", "zoom-out", "zoom-fit", "zoom-reset",
+		"next-frame", "prev-frame", "next-keyframe", "prev-keyframe",
+		"add-text", "add-image", "add-video", "add-audio",
+		"toggle-snapping", "toggle-grid", "toggle-rulers",
+		"save", "export", "import", "new-project",
+	].includes(value);
 }

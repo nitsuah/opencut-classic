@@ -127,10 +127,10 @@ async function loadLegacyTracksForScene({
 			version: 1,
 		});
 
-	let data = await adapter.get("timeline");
+		let data = await adapter.get("timeline");
 
-	if (!data && isMain) {
-		const projectAdapter = new IndexedDBAdapter<LegacyTimelineData>({
+		if (!data && isMain) {
+			const projectAdapter = new IndexedDBAdapter<LegacyTimelineData>({
 				dbName: projectDbName,
 				storeName: "timeline",
 				version: 1,
