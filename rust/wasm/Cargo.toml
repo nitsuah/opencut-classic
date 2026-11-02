@@ -7,8 +7,6 @@ repository = "https://github.com/opencut/opencut"
 license = "MIT"
 publish = false
 
-[package.metadata.wasm-pack]
-wasm-opt = false
 
 [lib]
 path = "src/wasm.rs"
