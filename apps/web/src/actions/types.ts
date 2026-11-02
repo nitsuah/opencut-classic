@@ -12,6 +12,15 @@ export type TActionArgsMap = {
 	"remove-media-assets": { projectId: string; assetIds: string[] };
 };
 
+const TActionArgsMapKeys = [
+	"seek-forward",
+	"seek-backward",
+	"jump-forward",
+	"jump-backward",
+	"remove-media-asset",
+	"remove-media-assets",
+] as const satisfies readonly (keyof TActionArgsMap)[];
+
 type TKeysWithValueUndefined<T> = {
 	[K in keyof T]: undefined extends T[K] ? K : never;
 }[keyof T];
@@ -42,3 +51,17 @@ export type TActionHandlerOptions =
 	| MutableRefObject<boolean>
 	| boolean
 	| undefined;
+
+export function isActionWithOptionalArgs(value: string): value is TActionWithOptionalArgs {
+	return [
+		...TActionArgsMapKeys,
+		"play", "pause", "stop", "undo", "redo",
+		"copy", "cut", "paste", "delete", "select-all",
+		"split", "join", "trim-start", "trim-end",
+		"zoom-in", "zoom-out", "zoom-fit", "zoom-reset",
+		"next-frame", "prev-frame", "next-keyframe", "prev-keyframe",
+		"add-text", "add-image", "add-video", "add-audio",
+		"toggle-snapping", "toggle-grid", "toggle-rulers",
+		"save", "export", "import", "new-project",
+	].includes(value);
+}

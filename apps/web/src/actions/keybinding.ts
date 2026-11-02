@@ -41,3 +41,9 @@ export type ShortcutKey = ModifierBasedShortcutKey | SingleCharacterShortcutKey;
 export type KeybindingConfig = {
 	[key in ShortcutKey]?: TActionWithOptionalArgs;
 };
+
+export function isShortcutKey(value: string): value is ShortcutKey {
+	return KEY_SET.has(value) || value.split('+').every(part =>
+		part === 'ctrl' || part === 'alt' || part === 'shift' || KEY_SET.has(part)
+	);
+}

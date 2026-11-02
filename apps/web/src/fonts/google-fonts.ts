@@ -11,7 +11,7 @@ let cachedAtlas: FontAtlas | null = null;
 let atlasFetchPromise: Promise<FontAtlas | null> | null = null;
 
 function encodeGoogleFontsFamily(family: string): string {
-	return family.replace(/ /g, "+");
+	return encodeURIComponent(family).replace(/%20/g, "+");
 }
 
 export function getCachedFontAtlas(): FontAtlas | null {
