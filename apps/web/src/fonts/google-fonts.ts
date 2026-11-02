@@ -14,6 +14,13 @@ function encodeGoogleFontsFamily(family: string): string {
 	return encodeURIComponent(family).replace(/%20/g, "+");
 }
 
+export function escapeCssString(value: string): string {
+	return value.replace(/[\0-\x1f\x7f"\\]/g, (character) => {
+		const codePoint = character.codePointAt(0);
+		return codePoint === undefined ? "" : `\\${codePoint.toString(16)} `;
+	});
+}
+
 export function getCachedFontAtlas(): FontAtlas | null {
 	return cachedAtlas;
 }
@@ -70,7 +77,7 @@ export async function loadFullFont({
 		link.addEventListener("load", () => resolve(), { once: true });
 		link.addEventListener("error", () => resolve(), { once: true });
 	});
-	const escapedFamily = encodeURIComponent(family).replace(/%20/g, "+");
+	const escapedFamily = escapeCssString(family);
 	await Promise.all(
 		weights.map((weight) =>
 			document.fonts.load(`${weight} 16px "${escapedFamily}"`),
