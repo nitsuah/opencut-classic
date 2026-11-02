@@ -34,7 +34,7 @@ test("loadFullFont uses CSS string escaping, not URL encoding, for font-family",
 
   try {
     await loadFullFont({ family: 'Open Sans "Display" \\ Test', weights: [400] });
-    expect(fontLoads).toEqual(['400 16px "Open Sans \\22 Display\\22 \\5c Test"']);
+    expect(fontLoads).toEqual(['400 16px "Open Sans \\"Display\\" \\\\ Test"']);
     expect(link.href).toContain("family=Open+Sans+%22Display%22+%5C+Test");
   } finally {
     clearFontAtlasCache();
