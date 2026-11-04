@@ -50,14 +50,14 @@ type TActionWithRequiredArgs = Exclude<
 	TKeysWithValueUndefined<TActionArgsMap>
 >;
 
-const ACTIONS_WITH_REQUIRED_ARGS = new Set<TActionWithRequiredArgs>([
-	"remove-media-asset",
-	"remove-media-assets",
-]);
+const ACTIONS_WITH_REQUIRED_ARGS: Record<TActionWithRequiredArgs, true> = {
+	"remove-media-asset": true,
+	"remove-media-assets": true,
+};
 
 export function isActionWithOptionalArgs(value: string): value is TActionWithOptionalArgs {
 	return (
 		Object.prototype.hasOwnProperty.call(ACTIONS, value) &&
-		!ACTIONS_WITH_REQUIRED_ARGS.has(value as TActionWithRequiredArgs)
+		!Object.prototype.hasOwnProperty.call(ACTIONS_WITH_REQUIRED_ARGS, value)
 	);
 }
