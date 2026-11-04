@@ -9,6 +9,7 @@ test("accepts no-argument and optional-argument actions", () => {
     "seek-backward",
     "jump-forward",
     "jump-backward",
+    "delete-selected",
   ]) {
     expect(isActionWithOptionalArgs(action)).toBe(true);
   }
