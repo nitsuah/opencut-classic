@@ -3,7 +3,7 @@ import { getDefaultShortcuts } from "./definitions";
 import { isShortcutKey } from "./keybinding";
 
 test("accepts single keys and canonical modifier combinations", () => {
-  for (const value of ["a", "space", "ctrl+a", "ctrl+shift+z", "alt+shift+up", "ctrl+alt+shift+a"]) {
+  for (const value of ["a", "space", "ctrl+a", "ctrl+shift+z", "alt+shift+up", "ctrl+alt+a", "ctrl+alt+shift+a"]) {
     expect(isShortcutKey(value)).toBe(true);
   }
 });
