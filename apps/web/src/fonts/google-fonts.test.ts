@@ -41,7 +41,7 @@ test("loadFullFont uses CSS string escaping, not URL encoding, for font-family",
     if (previousDocument) {
       Object.defineProperty(globalThis, "document", previousDocument);
     } else {
-      delete (globalThis as { document?: unknown }).document;
+      Reflect.deleteProperty(globalThis, "document");
     }
   }
 });
