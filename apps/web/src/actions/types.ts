@@ -13,7 +13,6 @@ export type TActionArgsMap = {
 	"remove-media-assets": { projectId: string; assetIds: string[] };
 };
 
-
 type TKeysWithValueUndefined<T> = {
 	[K in keyof T]: undefined extends T[K] ? K : never;
 }[keyof T];
@@ -55,8 +54,11 @@ const ACTIONS_WITH_REQUIRED_ARGS: Record<TActionWithRequiredArgs, true> = {
 	"remove-media-assets": true,
 };
 
-export function isActionWithOptionalArgs(value: string): value is TActionWithOptionalArgs {
+export function isActionWithOptionalArgs(
+	value: unknown,
+): value is TActionWithOptionalArgs {
 	return (
+		typeof value === "string" &&
 		Object.prototype.hasOwnProperty.call(ACTIONS, value) &&
 		!Object.prototype.hasOwnProperty.call(ACTIONS_WITH_REQUIRED_ARGS, value)
 	);
