@@ -9,6 +9,7 @@ import {
 	setCanvasLetterSpacing,
 } from "./layout";
 import { FONT_SIZE_SCALE_REFERENCE } from "./typography";
+import { escapeCssString } from "@/utils/css";
 
 export type TextAlign = "left" | "center" | "right";
 export type TextFontWeight = "normal" | "bold";
@@ -53,9 +54,9 @@ export interface ResolvedTextBackgroundLike {
 	cornerRadius: number;
 }
 
-// codeql[js/incomplete-sanitization]: Font family quoting — input is from controlled font lists, not user content.
+// Font family values are escaped as CSS strings before interpolation.
 export function quoteFontFamily({ fontFamily }: { fontFamily: string }): string {
-	return `"${fontFamily.replace(/"/g, '\\"')}"`;
+	return `"${escapeCssString(fontFamily)}"`;
 }
 
 export function buildTextFontString({

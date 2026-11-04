@@ -82,5 +82,4 @@ jobs:
 
       - name: Run tests
         working-directory: apps/web
-        run: echo "No tests implemented yet"
-        continue-on-error: true
+        run: bun test src/actions/keybinding.test.ts src/actions/types.test.ts src/fonts/google-fonts.test.ts src/utils/css.test.ts

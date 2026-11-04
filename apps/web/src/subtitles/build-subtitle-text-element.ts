@@ -1,4 +1,5 @@
 import { FONT_SIZE_SCALE_REFERENCE } from "@/text/typography";
+import { escapeCssString } from "@/utils/css";
 import {
 	getTextVisualRect,
 	measureTextBlock,
@@ -21,9 +22,9 @@ const SUBTITLE_BOTTOM_MARGIN_RATIO = 0.05;
 const SUBTITLE_FONT_SIZE = 5;
 const MEASUREMENT_CANVAS_SIZE = 4096;
 
-// codeql[js/incomplete-sanitization]: Font family quoting — input from controlled font lists, not user content.
+// Font family values are escaped as CSS strings before interpolation.
 function quoteFontFamily({ fontFamily }: { fontFamily: string }): string {
-	return `"${fontFamily.replace(/"/g, '\\"')}"`;
+	return `"${escapeCssString(fontFamily)}"`;
 }
 
 function createMeasurementContext(): CanvasRenderingContext2D | null {

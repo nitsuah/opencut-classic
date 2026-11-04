@@ -1,5 +1,8 @@
 import type { FontAtlas } from "@/fonts/types";
 import { SYSTEM_FONTS } from "@/fonts/system-fonts";
+import { escapeCssString } from "@/utils/css";
+
+export { escapeCssString };
 
 const GOOGLE_FONTS_CSS = "https://fonts.googleapis.com/css2";
 const FONT_ATLAS_PATH = "/fonts/font-atlas.json";
@@ -11,7 +14,7 @@ let cachedAtlas: FontAtlas | null = null;
 let atlasFetchPromise: Promise<FontAtlas | null> | null = null;
 
 function encodeGoogleFontsFamily(family: string): string {
-	return family.replace(/ /g, "+");
+	return encodeURIComponent(family).replace(/%20/g, "+");
 }
 
 export function getCachedFontAtlas(): FontAtlas | null {
@@ -70,7 +73,7 @@ export async function loadFullFont({
 		link.addEventListener("load", () => resolve(), { once: true });
 		link.addEventListener("error", () => resolve(), { once: true });
 	});
-	const escapedFamily = family.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+	const escapedFamily = escapeCssString(family);
 	await Promise.all(
 		weights.map((weight) =>
 			document.fonts.load(`${weight} 16px "${escapedFamily}"`),

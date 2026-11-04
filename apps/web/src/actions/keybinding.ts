@@ -42,21 +42,21 @@ export type KeybindingConfig = {
 	[key in ShortcutKey]?: TActionWithOptionalArgs;
 };
 
+const VALID_MODIFIER_PARTS: ReadonlySet<string> = new Set([
+	'ctrl',
+	'alt',
+	'shift',
+	'ctrl+shift',
+	'alt+shift',
+	'ctrl+alt',
+	'ctrl+alt+shift',
+]);
+
 export function isShortcutKey(value: string): value is ShortcutKey {
-	const parts = value.split("+");
-	if (parts.length === 1) {
-		return isKey(value);
-	}
-	const modifierPart = parts.slice(0, -1).join("+");
+	if (KEY_SET.has(value)) return true;
+	const parts = value.split('+');
+	if (parts.length < 2) return false;
+	const modifierPart = parts.slice(0, -1).join('+');
 	const keyPart = parts[parts.length - 1];
-	const validModifiers = [
-		"ctrl",
-		"alt",
-		"shift",
-		"ctrl+shift",
-		"alt+shift",
-		"ctrl+alt",
-		"ctrl+alt+shift",
-	];
-	return validModifiers.includes(modifierPart) && isKey(keyPart);
+	return VALID_MODIFIER_PARTS.has(modifierPart) && KEY_SET.has(keyPart);
 }
