@@ -3840,6 +3840,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "opencut-time"
+version = "0.1.0"
+dependencies = [
+ "bridge",
+ "num-traits",
+ "serde",
+ "tsify-next",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "opencut-wasm"
 version = "0.2.10"
 dependencies = [
@@ -3851,9 +3862,9 @@ dependencies = [
  "js-sys",
  "masks",
  "num-traits",
+ "opencut-time",
  "serde",
  "serde-wasm-bindgen",
- "time",
  "wasm-bindgen",
  "wasm-bindgen-futures",
  "web-sys",
@@ -5671,17 +5682,6 @@ dependencies = [
  "quick-error",
  "weezl",
  "zune-jpeg",
-]
-
-[[package]]
-name = "time"
-version = "0.1.0"
-dependencies = [
- "bridge",
- "num-traits",
- "serde",
- "tsify-next",
- "wasm-bindgen",
 ]
 
 [[package]]
