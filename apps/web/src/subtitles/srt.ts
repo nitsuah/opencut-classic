@@ -1,7 +1,6 @@
 import type { ParseSubtitleResult, SubtitleCue } from "./types";
 
-// codeql[js/bad-tag-filter]: SRT timestamp separator regex — fixed pattern, not user input.
-const TIMESTAMP_SEPARATOR = /\s*-->\s*/;
+const TIMESTAMP_ARROW = "-->";
 const TIMESTAMP_PATTERN =
 	/^(\d{2}:\d{2}:\d{2}[,.]\d{1,3})\s*-->\s*(\d{2}:\d{2}:\d{2}[,.]\d{1,3})/;
 
@@ -30,7 +29,7 @@ export function parseSrt({ input }: { input: string }): ParseSubtitleResult {
 			continue;
 		}
 
-		const timestampIndex = TIMESTAMP_SEPARATOR.test(lines[0]) ? 0 : 1;
+		const timestampIndex = lines[0].includes(TIMESTAMP_ARROW) ? 0 : 1;
 		const timestampLine = lines[timestampIndex];
 		if (!timestampLine || !TIMESTAMP_PATTERN.test(timestampLine)) {
 			skippedCueCount += 1;
@@ -44,7 +43,9 @@ export function parseSrt({ input }: { input: string }): ParseSubtitleResult {
 			continue;
 		}
 
-		const [rawStart, rawEnd] = timestampLine.split(TIMESTAMP_SEPARATOR);
+		const [rawStart, rawEnd] = timestampLine
+			.split(TIMESTAMP_ARROW)
+			.map((part) => part.trim());
 		if (!rawStart || !rawEnd) {
 			skippedCueCount += 1;
 			continue;
