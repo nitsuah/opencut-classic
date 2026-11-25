@@ -1,5 +1,6 @@
 [workspace]
 resolver = "2"
+exclude = ["vendor/taffy"]
 members = [
     "apps/desktop",
     "rust/crates/time",
@@ -9,3 +10,7 @@ members = [
     "rust/crates/masks",
     "rust/wasm", "rust/crates/compositor",
 ]
+
+[patch.crates-io]
+# gpui 0.2.2 pins taffy =0.9.0, which requires grid ^0.18 (vulnerable). Vendored copy with grid 1.0.1; drop when gpui moves off the pin.
+taffy = { path = "vendor/taffy" }
