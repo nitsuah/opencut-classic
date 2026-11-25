@@ -1,0 +1,65 @@
+name: Journeys
+
+# Nightly "AI user": the happy paths in tests/journeys, run in Docker against a
+# production build with visual baselines. Failures become deduplicated
+# `bot:journey` issues (no AI) via the shared harness in nitsuah/.github
+# (journeys/STANDARD.md); issues auto-close after 3 green runs. BUGS.md and
+# metrics live on the bot/journeys branch:
+# https://github.com/nitsuah/opencut-classic/blob/bot/journeys/BUGS.md
+
+on:
+  schedule:
+    - cron: '41 6 * * *' # 06:41 UTC nightly
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - 'tests/journeys/**'
+      - 'config/playwright*.js'
+      - 'script/journeys.sh'
+      - '.github/workflows/journeys.yml'
+      # A bump of @playwright/test runs the journeys, so a stale `image`
+      # fails that PR instead of the nightly.
+      - 'bun.lock'
+
+permissions: {}
+
+concurrency:
+  group: journeys-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Pull requests run repo code and the shared workflow only prints a summary
+  # there, so they get a read-only token.
+  journeys-pr:
+    if: github.event_name == 'pull_request'
+    permissions:
+      contents: read
+      issues: read
+    uses: nitsuah/.github/.github/workflows/journeys.yml@506e8658b6e6a27ba31d5b8450adc3638daf27e2 # main 2026-11-24
+    with:
+      # Keep in step with @playwright/test in package.json.
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
+      setup: npm i -g bun@1.2.18 && bun install --frozen-lockfile
+      command: sh script/journeys.sh
+      features: promo/spots.json
+      kit-ref: 506e8658b6e6a27ba31d5b8450adc3638daf27e2 # same commit as the workflow ref above; bump both together
+      repro: |
+        docker run --rm -v "$PWD:/w" -w /w -e CI=true mcr.microsoft.com/playwright:v1.65.0-noble           sh -c "npm i -g bun@1.2.18 && bun install --frozen-lockfile && sh script/journeys.sh"
+
+  # Nightly and manual runs file and close bot:journey issues and update the
+  # bot/journeys branch (BUGS.md, metrics, failure screenshots).
+  journeys:
+    if: github.event_name != 'pull_request'
+    permissions:
+      contents: write # bot/journeys branch only
+      issues: write
+    uses: nitsuah/.github/.github/workflows/journeys.yml@506e8658b6e6a27ba31d5b8450adc3638daf27e2 # main 2026-11-24
+    with:
+      image: mcr.microsoft.com/playwright:v1.65.0-noble
+      setup: npm i -g bun@1.2.18 && bun install --frozen-lockfile
+      command: sh script/journeys.sh
+      features: promo/spots.json
+      kit-ref: 506e8658b6e6a27ba31d5b8450adc3638daf27e2 # same commit as the workflow ref above; bump both together
+      repro: |
+        docker run --rm -v "$PWD:/w" -w /w -e CI=true mcr.microsoft.com/playwright:v1.65.0-noble           sh -c "npm i -g bun@1.2.18 && bun install --frozen-lockfile && sh script/journeys.sh"

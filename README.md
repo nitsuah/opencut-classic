@@ -135,6 +135,11 @@ docker compose up -d
 
 The app will be available at [http://localhost:3100](http://localhost:3100).
 
+## Testing
+
+- Unit tests: `bun test` (see `.github/workflows/bun-ci.yml` for the files CI runs).
+- Nightly journeys: a plain Playwright run of the landing page, roadmap and project creation against a production build, with visual baselines (`tests/journeys`, `.github/workflows/journeys.yml`). Run locally with `bun run test:journeys`; use the Playwright Docker image for baselines. Failures are filed as `bot:journey` issues and listed in [BUGS.md](https://github.com/nitsuah/opencut-classic/blob/bot/journeys/BUGS.md).
+
 ## Contributing
 
 We welcome contributions! While we're actively developing and refactoring certain areas, there are plenty of opportunities to contribute effectively.

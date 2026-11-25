@@ -20,7 +20,8 @@
     "preview:web": "turbo run preview --filter=@opencut/web",
     "publish:wasm": "bun run build:wasm && npm publish rust/wasm/pkg --access public",
     "start:tools": "turbo run start --filter=@opencut/tools",
-    "test": "bun test"
+    "test": "bun test",
+    "test:journeys": "sh script/journeys.sh"
   },
   "dependencies": {
     "@types/react": "^19.2.10",
@@ -31,6 +32,7 @@
     "opencut-wasm": "^0.2.10"
   },
   "devDependencies": {
+    "@playwright/test": "1.65.0",
     "@eslint/js": "^9.39.4",
     "@next/eslint-plugin-next": "^16.2.4",
     "eslint": "^9.39.4",
