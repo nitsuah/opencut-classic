@@ -1,0 +1,162 @@
+{
+  "product": "opencut-classic",
+  "live": null,
+  "page": null,
+  "pagesDir": null,
+  "features": [
+    {
+      "id": "landing-page",
+      "title": "Landing Page",
+      "category": "Web Editor",
+      "screenshots": [
+        "docs/screenshots/landing-page.png"
+      ],
+      "spots": []
+    },
+    {
+      "id": "projects",
+      "title": "Projects",
+      "category": "Web Editor",
+      "screenshots": [
+        "docs/screenshots/projects.png"
+      ],
+      "spots": []
+    },
+    {
+      "id": "local-storage",
+      "title": "Local-first Storage",
+      "category": "Web Editor",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "timeline",
+      "title": "Multi-track Timeline",
+      "category": "Editing",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "keyframes",
+      "title": "Keyframe Animation",
+      "category": "Editing",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "effects",
+      "title": "Effects",
+      "category": "Editing",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "masks",
+      "title": "Masks",
+      "category": "Editing",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "retime",
+      "title": "Speed and Retime",
+      "category": "Editing",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "text-and-gradients",
+      "title": "Text and Gradients",
+      "category": "Editing",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "stickers",
+      "title": "Stickers",
+      "category": "Library",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "sound-library",
+      "title": "Sound Library",
+      "category": "Library",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "audio-tools",
+      "title": "Audio Tools",
+      "category": "Editing",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "subtitles",
+      "title": "Subtitle Import",
+      "category": "Captions",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "auto-captions",
+      "title": "Auto Captions",
+      "category": "Captions",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "export",
+      "title": "Export",
+      "category": "Output",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "shortcuts",
+      "title": "Keyboard Shortcuts",
+      "category": "Web Editor",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    },
+    {
+      "id": "roadmap-page",
+      "title": "Roadmap Page",
+      "category": "Web Editor",
+      "screenshots": [
+        "docs/screenshots/roadmap-page.png"
+      ],
+      "spots": []
+    },
+    {
+      "id": "desktop-app",
+      "title": "Desktop App",
+      "category": "Desktop",
+      "screenshots": [],
+      "spots": [],
+      "visual": "none"
+    }
+  ],
+  "spots": [],
+  "reels": [],
+  "brand": {
+    "source": "apps/web/public/favicon.ico",
+    "derived": [],
+    "manual": []
+  }
+}
